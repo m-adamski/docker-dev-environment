@@ -1,0 +1,21 @@
+# my.cnf template: http://www.fromdual.com/mysql-configuration-file-sample
+
+[client]
+port = 3306
+socket = /var/run/mysqld/mysqld.sock
+
+[mysqld]
+port = 3306
+socket = /var/run/mysqld/mysqld.sock
+
+default_storage_engine = InnoDB
+
+explicit_defaults_for_timestamp = 1
+
+character_set_server = utf8
+collation_server = utf8_general_ci
+
+# sql_mode = NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES
+sql_mode = TRADITIONAL,ONLY_FULL_GROUP_BY,NO_ENGINE_SUBSTITUTION,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER
+
+skip_name_resolve = 1
