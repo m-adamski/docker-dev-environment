@@ -19,7 +19,18 @@ RUN apt-get update && apt-get install -y --force-yes \
     php7.1-sqlite \
     php7.1-curl \
     php7.1-intl \
+    php7.1-xml \
+    php7.1-xdebug \
     libapache2-mod-fastcgi
+
+# Configure XDebug
+RUN echo "zend_extension=$(find /usr/lib/php/2016* -name xdebug.so)" > /etc/php/7.1/mods-available/xdebug.ini \
+    && echo "xdebug.remote_enable=on" >> /etc/php/7.1/mods-available/xdebug.ini \
+    && echo "xdebug.remote_handler=dbgp" >> /etc/php/7.1/mods-available/xdebug.ini \
+    && echo "xdebug.remote_mode=req" >> /etc/php/7.1/mods-available/xdebug.ini \
+    && echo "xdebug.remote_port=9000" >> /etc/php/7.1/mods-available/xdebug.ini \
+    && echo "xdebug.max_nesting_level=300" >> /etc/php/7.1/mods-available/xdebug.ini \
+    && echo "xdebug.remote_autostart=off" >> /etc/php/7.1/mods-available/xdebug.ini
 
 # Enable Apache2 Modules & Configurations
 RUN a2enmod actions rewrite ssl fastcgi proxy_fcgi alias
