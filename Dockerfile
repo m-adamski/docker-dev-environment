@@ -29,7 +29,7 @@ RUN echo "zend_extension=$(find /usr/lib/php/2016* -name xdebug.so)" > /etc/php/
     && echo "remote_connect_back=on" >> /etc/php/7.1/mods-available/xdebug.ini
 
 # Enable Apache2 Modules & Configurations
-RUN a2enmod actions rewrite ssl fastcgi proxy_fcgi alias
+RUN a2enmod rewrite ssl proxy_fcgi setenvif
 RUN a2enconf php7.1-fpm
 
 # Run PHP-FPM & Apache2 Service
