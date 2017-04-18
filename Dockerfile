@@ -32,5 +32,8 @@ RUN echo "zend_extension=$(find /usr/lib/php/2016* -name xdebug.so)" > /etc/php/
 RUN a2enmod rewrite ssl proxy_fcgi setenvif
 RUN a2enconf php7.1-fpm
 
+# Create SSL Certifications directory
+RUN mkdir -p /usr/local/apache/conf/ssl.crt
+
 # Run PHP-FPM & Apache2 Service
 CMD service php7.1-fpm start && apache2ctl -DFOREGROUND

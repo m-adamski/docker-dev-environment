@@ -14,3 +14,10 @@ After that you are ready to go! Write your code in project directory and check r
 
 ### Configuration
 All important configuration variables are included in ``.env`` file.
+
+### Self-Signed SSL Certificate
+In some cases you would like to use secure communication protocol (HTTPS). Environment contain already generated pair of certificate and key files, but in case of new files generation needed you need to instal OpenSSL and run this command:
+
+```shell
+$ openssl req -x509 -nodes -days 20000 -newkey rsa:2048 -keyout modules\apache\cert\server.local.key -out modules\apache\cert\server.local.cert -subj /CN=localhost
+```
