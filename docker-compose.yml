@@ -36,6 +36,7 @@ services:
             - ${VOLUME_APACHE_VHOSTS}:/etc/apache2/sites-available
             - ${VOLUME_APACHE_LOGS}:/var/log/apache2
             - ${VOLUME_APACHE_CERT}:/usr/local/apache/conf/ssl.crt
+            - ${VOLUME_PHP_POOL}:/etc/php/7.1/fpm/pool.d
             - ${VOLUME_APACHE_PROJECT}:/var/www
         ports:
             - ${APACHE_HTTP_PORT}:80
