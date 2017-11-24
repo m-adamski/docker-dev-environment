@@ -33,15 +33,14 @@ services:
             - db
             - mailhog
         volumes:
-            - ${VOLUME_APACHE_VHOSTS}:/etc/apache2/sites-available
-            - ${VOLUME_APACHE_LOGS}:/var/log/apache2
-            - ${VOLUME_APACHE_CERT}:/usr/local/apache/conf/ssl.crt
+            - ${VOLUME_NGINX_WWW}:/var/www/vhosts
+            - ${VOLUME_NGINX_VHOSTS}:/etc/nginx/sites-enabled
+            - ${VOLUME_NGINX_LOGS}:/var/log/nginx
+            - ${VOLUME_NGINX_CERT}:/usr/local/nginx/certificates
             - ${VOLUME_PHP_POOL}:/etc/php/7.1/fpm/pool.d
-            - ${VOLUME_APACHE_PROJECT}:/var/www
         ports:
-            - ${APACHE_HTTP_PORT}:80
-            - ${APACHE_HTTPS_PORT}:443
-            - ${PHP_XDEBUG_PORT}:9000
+            - ${NGINX_HTTP_PORT}:80
+            - ${NGINX_HTTPS_PORT}:443
         pid: host
         networks:
             appnet:
