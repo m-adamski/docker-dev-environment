@@ -1,8 +1,7 @@
-# Docker Apache Module
-/modules/apache/logs/*
-!/modules/apache/logs/.gitkeep
 
-# Docker MySQL Module
+/modules/nginx/logs/*
+!/modules/nginx/logs/.gitkeep
+
 /modules/mysql/data/*
 !/modules/mysql/data/.gitkeep
 /modules/mysql/logs/*

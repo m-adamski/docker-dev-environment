@@ -1,39 +1,35 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 
 # Update packages list & install required libraries
 RUN apt-get update && apt-get install -y \
-    software-properties-common \
-    python-software-properties
+    software-properties-common
 
 # Add External Repositories
-RUN add-apt-repository -y ppa:ondrej/apache2
-RUN add-apt-repository -y ppa:ondrej/php
+RUN LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
 
 # Update & install required packages
-RUN apt-get update && apt-get install -y --force-yes \
+RUN apt-get update && apt-get install -y \
     nano \
-    apache2 \
-    php7.1-fpm \
+    nginx \
+    php7.1 \
+    php7.1-cli \
+    php7.1-common \
+    php7.1-json \
+    php7.1-opcache \
     php7.1-mysql \
+    php7.1-mbstring \
     php7.1-mcrypt \
-    php7.1-sqlite \
+    php7.1-zip \
     php7.1-curl \
     php7.1-intl \
     php7.1-xml \
-    php7.1-xdebug \
-    libapache2-mod-fastcgi
+    php7.1-fpm
 
-# Configure XDebug
-RUN echo "zend_extension=$(find /usr/lib/php/2016* -name xdebug.so)" > /etc/php/7.1/mods-available/xdebug.ini \
-    && echo "xdebug.remote_enable=on" >> /etc/php/7.1/mods-available/xdebug.ini \
-    && echo "remote_connect_back=on" >> /etc/php/7.1/mods-available/xdebug.ini
+# Create main Virtual Hosts directory
+RUN mkdir -p /var/www/vhosts
 
-# Enable Apache2 Modules & Configurations
-RUN a2enmod rewrite ssl proxy_fcgi setenvif
-RUN a2enconf php7.1-fpm
+# Create certificates directory
+RUN mkdir -p /usr/local/nginx/certificates
 
-# Create SSL Certifications directory
-RUN mkdir -p /usr/local/apache/conf/ssl.crt
-
-# Run PHP-FPM & Apache2 Service
-CMD service php7.1-fpm start && apache2ctl -DFOREGROUND
+# Run PHP-FPM & NGINX Service
+CMD service php7.1-fpm start && nginx -g 'daemon off;'
