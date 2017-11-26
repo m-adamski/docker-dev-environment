@@ -32,5 +32,4 @@ RUN mkdir -p /var/www/vhosts
 RUN mkdir -p /usr/local/nginx/certificates
 
 # Run PHP-FPM & NGINX Service
-# CMD systemctl start php7.1-fpm && nginx -g daemon off
-CMD ["nginx", "-g", "daemon off;"]
+CMD service php7.1-fpm start && nginx -g 'daemon off;'

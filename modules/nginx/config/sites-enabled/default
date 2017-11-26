@@ -1,7 +1,7 @@
 server {
     listen 80 default_server;
     listen [::]:80 default_server;
-    server_name localhost;
+    server_name _;
     return 301 https://$host$request_uri;
     
     server_tokens off;
@@ -10,7 +10,10 @@ server {
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
-    server_name localhost;
+    server_name _;
+
+    root /var/www/vhosts/localhost;
+    index index.php index.html index.htm;
 
     server_tokens off;
 
@@ -24,10 +27,18 @@ server {
     ssl_certificate_key /usr/local/nginx/certificates/nginx.key;
 
     location / {
-        root /var/www/vhosts/localhost;
+        try_files $uri $uri/ /index.html;
+    }
+
+    location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
 
         fastcgi_pass  unix:/run/php/php7.1-fpm.sock;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         fastcgi_param QUERY_STRING    $query_string;
+        fastcgi_index index.php;
+        
+        include fastcgi_params;
     }
 }
