@@ -34,9 +34,10 @@ services:
             - mailhog
         volumes:
             - ${VOLUME_NGINX_WWW}:/var/www/vhosts
-            - ${VOLUME_NGINX_VHOSTS}:/etc/nginx/sites-enabled
+            - ${VOLUME_NGINX_VHOSTS}:/etc/nginx/sites-available
             - ${VOLUME_NGINX_LOGS}:/var/log/nginx
             - ${VOLUME_NGINX_CERT}:/usr/local/nginx/certificates
+            - ${VOLUME_NGINX_SCRIPTS}:/usr/local/nginx/scripts
             - ${VOLUME_PHP_POOL}:/etc/php/7.1/fpm/pool.d
         ports:
             - ${NGINX_HTTP_PORT}:80
