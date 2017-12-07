@@ -1,4 +1,7 @@
 
+/modules/apache/logs/*
+!/modules/apache/logs/.gitkeep
+
 /modules/nginx/logs/*
 !/modules/nginx/logs/.gitkeep
 

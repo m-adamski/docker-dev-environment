@@ -1,7 +1,7 @@
 server {
     listen 80;
     listen [::]:80;
-    server_name example.com;
+    server_name example.local;
     return 301 https://$host$request_uri;
     
     server_tokens off;
@@ -10,9 +10,9 @@ server {
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
-    server_name example.com;
+    server_name example.local;
 
-    root /var/www/vhosts/example.com;
+    root /var/www/vhosts/example.local;
     index index.php index.html index.htm;
 
     server_tokens off;
@@ -27,7 +27,7 @@ server {
     ssl_certificate_key /usr/local/nginx/certificates/nginx.key;
 
     location / {
-        try_files $uri $uri/ /index.html;
+        try_files $uri $uri/ =404;
     }
 
     location ~ \.php$ {

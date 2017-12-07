@@ -20,7 +20,7 @@ services:
         image: mailhog/mailhog
         env_file: .env
         ports:
-            - ${MAILHOG_SMTP_PORT}:1025
+            - ${SMTP_PORT}:1025
             - ${MAILHOG_PANEL_PORT}:8025
         networks:
             appnet:
@@ -33,15 +33,21 @@ services:
             - db
             - mailhog
         volumes:
-            - ${VOLUME_NGINX_WWW}:/var/www/vhosts
+            - ${VOLUME_WWW}:/var/www/vhosts
             - ${VOLUME_NGINX_VHOSTS}:/etc/nginx/sites-available
             - ${VOLUME_NGINX_LOGS}:/var/log/nginx
             - ${VOLUME_NGINX_CERT}:/usr/local/nginx/certificates
             - ${VOLUME_NGINX_SCRIPTS}:/usr/local/nginx/scripts
+            - ${VOLUME_APACHE_VHOSTS}:/etc/apache2/sites-available
+            - ${VOLUME_APACHE_LOGS}:/var/log/apache2
+            - ${VOLUME_APACHE_CERT}:/usr/local/apache/certificates
+            - ${VOLUME_APACHE_SCRIPTS}:/usr/local/apache/scripts
             - ${VOLUME_PHP_POOL}:/etc/php/7.1/fpm/pool.d
+            - ${VOLUME_PHP_SCRIPTS}:/usr/local/php/scripts
+            - ${VOLUME_GLOBAL_SCRIPTS}:/usr/local/global/scripts
         ports:
-            - ${NGINX_HTTP_PORT}:80
-            - ${NGINX_HTTPS_PORT}:443
+            - ${HTTP_PORT}:80
+            - ${HTTPS_PORT}:443
         pid: host
         networks:
             appnet:
